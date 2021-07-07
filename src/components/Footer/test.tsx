@@ -9,7 +9,7 @@ describe('<Footer />', () => {
 
     //contact
     expect(
-      screen.getByRole('heading', { name: /contact/i })
+      screen.getByRole('heading', { name: /contact us/i })
     ).toBeInTheDocument()
     //follow us
     expect(

@@ -12,17 +12,20 @@ const Sections = styled.section`
     ${GameCardSliderStyles.Wrapper} {
       margin-bottom: ${theme.spacings.medium};
     }
+
     ${HighlightStyles.Wrapper} {
       ${media.lessThan('medium')`
         margin-right: calc(-${theme.grid.gutter} / 2);
         margin-left: calc(-${theme.grid.gutter} / 2);
       `}
     }
+
     ${GameCardSliderStyles.Wrapper} {
       ${media.lessThan('huge')`
         margin-right: calc(-${theme.grid.gutter} / 2);
       `}
     }
+
     margin-bottom: calc(${theme.spacings.large} * 2);
   `}
 `
@@ -30,6 +33,7 @@ const Sections = styled.section`
 export const SectionBanner = styled.section`
   ${({ theme }) => css`
     margin: ${theme.spacings.large} calc(-${theme.grid.gutter} / 2);
+
     ${media.greaterThan('medium')`
       margin: ${theme.spacings.large} 0;
       position: relative;
@@ -41,18 +45,27 @@ export const SectionBanner = styled.section`
 export const SectionNews = styled(Sections)`
   ${({ theme }) => css`
     margin-bottom: calc(${theme.spacings.xxlarge} * 2);
+
     ${media.greaterThan('large')`
       margin-top: -13rem;
     `}
+
     ${media.greaterThan('medium')`
       margin-bottom: 0;
       padding-top: 14rem;
       padding-bottom: 10rem;
       background-color: ${theme.colors.lightBg};
       clip-path: polygon(0 0, 100% 15%, 100% 100%, 0 85%);
+
       ${HeadingStyles.Wrapper} {
         color: ${theme.colors.black};
       }
+    `}
+
+    ${media.lessThan('medium')`
+      ${HeadingStyles.Wrapper} {
+          color: ${theme.colors.white};
+        }
     `}
   `}
 `

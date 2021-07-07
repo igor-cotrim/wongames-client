@@ -30,7 +30,12 @@ export const Column = styled.div`
       color: ${theme.colors.gray};
       text-decoration: none;
       margin-bottom: ${theme.spacings.xxsmall};
-      font-size: ${theme.font.sizes.small};
+      font-size: ${theme.font.sizes.medium};
+    }
+
+    a {
+      word-wrap: break-word;
+      overflow-wrap: break-word;
     }
 
     a:hover {
@@ -39,4 +44,12 @@ export const Column = styled.div`
   `}
 `
 
-export const Copyright = styled.div``
+export const Copyright = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.colors.gray};
+    font-size: ${theme.font.sizes.xsmall};
+    margin-top: ${theme.spacings.large};
+    margin-bottom: ${theme.spacings.medium};
+    text-align: center;
+  `}
+`

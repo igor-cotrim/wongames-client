@@ -11,7 +11,7 @@ const Footer = () => (
     <S.Content>
       <S.Column>
         <Heading color="black" size="small" lineBottom lineColor="secondary">
-          Contact
+          Contact us
         </Heading>
 
         <a
@@ -95,7 +95,7 @@ const Footer = () => (
       </S.Column>
     </S.Content>
 
-    <S.Copyright>Won Games 2020 © All rights reserved.</S.Copyright>
+    <S.Copyright>Won Games 2021 © All rights reserved.</S.Copyright>
   </S.Wrapper>
 )
 

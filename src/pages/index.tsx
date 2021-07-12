@@ -16,7 +16,7 @@ export default function Index(props: HomeTemplateProps) {
 export function getStaticProps() {
   //logica
   //pode ser buscar de dados
-  //fazer caalculo/leitura de context
+  //fazer calculo/leitura de context
 
   //retorno dos dados
   return {

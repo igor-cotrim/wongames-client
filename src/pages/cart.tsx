@@ -6,7 +6,7 @@ import gamesMock from 'components/GameCardSlider/mock'
 import cardsMock from 'components/PaymentOptions/mock'
 import highlightMock from 'components/Highlight/mock'
 
-export default function CartePage(props: CartProps) {
+export default function CartPage(props: CartProps) {
   return <Cart {...props} />
 }
 

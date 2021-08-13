@@ -1,3 +1,5 @@
+import { GetStaticProps } from 'next'
+
 import Home, { HomeTemplateProps } from 'templates/Home'
 import bannersMock from 'components/BannerSlider/mock'
 import gamesMock from 'components/GameCardSlider/mock'
@@ -13,12 +15,7 @@ export default function Index(props: HomeTemplateProps) {
 //getStaticProps => gerar estático em build time
 //getServerSideProps => gerar via ssr a cada request
 //getInitialProps => gerar via ssr a cada request
-export function getStaticProps() {
-  //logica
-  //pode ser buscar de dados
-  //fazer calculo/leitura de context
-
-  //retorno dos dados
+export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       banners: bannersMock,

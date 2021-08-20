@@ -30,7 +30,7 @@ export interface QueryHome_banners_ribbon {
 export interface QueryHome_banners {
   __typename: "Banner";
   image: QueryHome_banners_image | null;
-  title: string;
+  title: string | null;
   subtitle: string;
   button: QueryHome_banners_button | null;
   ribbon: QueryHome_banners_ribbon | null;

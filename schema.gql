@@ -75,7 +75,7 @@ type Banner {
   created_at: DateTime!
   updated_at: DateTime!
   image: UploadFile
-  title: String!
+  title: String
   subtitle: String!
   button: ComponentPageButton
   ribbon: ComponentPageRibbon
@@ -152,7 +152,7 @@ type BannerConnectionPublished_at {
 
 input BannerInput {
   image: ID
-  title: String!
+  title: String
   subtitle: String!
   button: ComponentPageButtonInput!
   ribbon: ComponentPageRibbonInput

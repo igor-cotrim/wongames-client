@@ -22,7 +22,8 @@ export const Wrapper = styled.div<WrapperProps>`
     position: relative;
     width: max-content;
 
-    ${Content} {
+    ${Content},
+    ${Overlay} {
       transition: transform 0.2s ease-in, opacity ${theme.transition.default};
 
       ${isOpen && wrapperModifiers.open()}
@@ -39,6 +40,7 @@ export const Title = styled.div`
     display: flex;
     align-items: center;
     padding-right: 2.4rem;
+    z-index: ${theme.layers.alwaysOnTop};
   `}
 `
 
@@ -51,6 +53,7 @@ export const Content = styled.div`
     margin-top: ${theme.spacings.small};
     position: absolute;
     right: 0;
+    z-index: ${theme.layers.alwaysOnTop};
 
     &::before {
       content: '';
@@ -61,5 +64,17 @@ export const Content = styled.div`
       top: -1.2rem;
       right: 2.4rem;
     }
+  `}
+`
+
+export const Overlay = styled.div`
+  ${({ theme }) => css`
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: ${theme.layers.overlay};
   `}
 `

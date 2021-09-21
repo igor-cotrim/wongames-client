@@ -1,4 +1,5 @@
 import { render, screen } from 'utils/test-utils'
+import { CartContextDefaultValues } from 'hooks/use-cart'
 
 import CartIcon from '.'
 
@@ -11,16 +12,11 @@ describe('<CartIcon />', () => {
   })
 
   it('should render with badge', () => {
-    render(<CartIcon quantity={3} />)
+    render(<CartIcon />, {
+      cartProviderProps: { ...CartContextDefaultValues, quantity: 3 }
+    })
 
     expect(screen.getByLabelText(/cart items/i)).toBeInTheDocument()
     expect(screen.getByText(/3/)).toBeInTheDocument()
-  })
-
-  it('should render wwith badge only if has positive numberss', () => {
-    render(<CartIcon quantity={-1} />)
-
-    expect(screen.queryByLabelText(/cart items/i)).not.toBeInTheDocument()
-    expect(screen.queryByText(/-1/)).not.toBeInTheDocument()
   })
 })

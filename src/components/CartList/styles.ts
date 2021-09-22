@@ -37,8 +37,24 @@ export const Wrapper = styled.main<WrapperProps>`
   `}
 `
 
+export const Loading = styled.div`
+  ${({ theme }) => css`
+    background: ${theme.colors.white};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40rem;
+    min-width: 56rem;
+
+    svg {
+      height: 10rem;
+      width: 10rem;
+    }
+  `}
+`
+
 export const GamesList = styled.div`
-  max-width: 40rem;
+  max-height: 40rem;
   overflow-y: auto;
 `
 
@@ -57,22 +73,6 @@ export const Footer = styled.div`
       font-size: ${theme.font.sizes.medium};
       padding: ${theme.spacings.small};
     `}
-  `}
-`
-
-export const Loading = styled.div`
-  ${({ theme }) => css`
-    background: ${theme.colors.white};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40rem;
-    min-width: 56rem;
-
-    svg {
-      height: 10rem;
-      width: 10rem;
-    }
   `}
 `
 

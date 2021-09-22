@@ -92,7 +92,7 @@ exports[`<CartList /> should render the cart list 1`] = `
 }
 
 .c1 {
-  max-width: 40rem;
+  max-height: 40rem;
   overflow-y: auto;
 }
 

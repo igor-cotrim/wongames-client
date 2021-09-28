@@ -280,6 +280,9 @@ exports[`<FormSignUp /> should render the form 1`] = `
     >
       <span>
         Sign up now
+        <span>
+          Sign up now
+        </span>
       </span>
     </button>
     <div

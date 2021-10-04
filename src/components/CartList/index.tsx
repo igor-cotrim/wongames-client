@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/link-passhref */
 import Link from 'next/link'
 
 import Button from 'components/Button'
@@ -37,7 +36,7 @@ const CartList = ({ hasButton = false }: CartListProps) => {
             {!hasButton && <span>Total:</span>}
             <S.Total>{total}</S.Total>
             {hasButton && (
-              <Link href="/cart">
+              <Link href="/cart" passHref>
                 <Button as="a">Buy it now</Button>
               </Link>
             )}

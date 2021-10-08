@@ -1,3 +1,4 @@
+import '../../../.jest/session.mock'
 import { render, screen } from 'utils/test-utils'
 import { MockedProvider } from '@apollo/client/testing'
 

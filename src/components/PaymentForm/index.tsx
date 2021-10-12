@@ -1,4 +1,5 @@
 import { Session } from 'next-auth'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
@@ -19,6 +20,7 @@ type PaymentFormProps = {
 
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
+  const { push } = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
@@ -67,6 +69,12 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     event.preventDefault()
     setLoading(true)
 
+    //se for freeGames salva no banco e redireciona para o success
+    if (freeGames) {
+      push('/success')
+      return
+    }
+
     const payload = await stripe!.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements!.getElement(CardElement)!
@@ -79,8 +87,9 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     } else {
       setError(null)
       setLoading(false)
-      console.log('Compra feita')
+
       //salvar a compra no banco do Strapi e redirecionarr para página de Sucesso
+      push('/success')
     }
   }
 

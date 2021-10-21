@@ -1,18 +1,19 @@
-import { Session } from 'next-auth'
+import Link from 'next/link'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { ShoppingCart, ErrorOutline } from 'styled-icons/material-outlined'
-
-import Button from 'components/Button'
-import Heading from 'components/Heading'
-import { FormLoading } from 'components/Form'
+import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
+import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
 import { useCart } from 'hooks/use-cart'
-import { createPaymentIntent } from 'utils/stripe/methods'
+import Button from 'components/Button'
+import Heading from 'components/Heading'
 
 import * as S from './styles'
+import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
+
+import { FormLoading } from 'components/Form'
+import { Session } from 'next-auth'
 
 type PaymentFormProps = {
   session: Session
@@ -21,36 +22,38 @@ type PaymentFormProps = {
 const PaymentForm = ({ session }: PaymentFormProps) => {
   const { items } = useCart()
   const { push } = useRouter()
+  const stripe = useStripe()
+  const elements = useElements()
+
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [disabled, setDisabled] = useState(true)
   const [clientSecret, setClientSecret] = useState('')
   const [freeGames, setFreeGames] = useState(false)
-  const stripe = useStripe()
-  const elements = useElements()
 
   useEffect(() => {
     async function setPaymentMode() {
       if (items.length) {
         // bater na API /orders/create-payment-intent
-        //enviar os items do carrinho
         const data = await createPaymentIntent({
           items,
           token: session.jwt as string
         })
 
-        //se receber freeGames: true => setFreeGames
-        //faz o fluxo de jogo gratuito
+        // se eu receber freeGames: true => setFreeGames
+        // faço o fluxo de jogo gratuito
         if (data.freeGames) {
           setFreeGames(true)
           return
         }
 
-        //se receber um erro => setError
+        // se eu receber um erro
+        // setError
         if (data.error) {
-          setError(data.eror)
+          setError(data.error)
         } else {
-          //senão o payment foi valido => setClientSecret
+          // senão o paymentIntent foi válido
+          // setClientSecret
           setFreeGames(false)
           setClientSecret(data.client_secret)
         }
@@ -65,12 +68,27 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setError(event.error ? event.error.message : '')
   }
 
+  const saveOrder = async (paymentIntent?: PaymentIntent) => {
+    const data = await createPayment({
+      items,
+      paymentIntent,
+      token: session.jwt as string
+    })
+
+    return data
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
 
-    //se for freeGames salva no banco e redireciona para o success
+    // se for freeGames
     if (freeGames) {
+      // salva no banco
+      // bater na API /orders
+      saveOrder()
+
+      // redireciona para success
       push('/success')
       return
     }
@@ -88,7 +106,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       setError(null)
       setLoading(false)
 
-      //salvar a compra no banco do Strapi e redirecionarr para página de Sucesso
+      // salvar a compra no banco do Strapi
+      // bater na API /orders
+      saveOrder(payload.paymentIntent)
+
+      // redirectionar para a página de Sucesso
       push('/success')
     }
   }
@@ -125,13 +147,15 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           )}
         </S.Body>
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}
-            disabled={!freeGames && (disabled || !!error)}
+            disabled={!freeGames && (disabled || !!error || loading)}
           >
             {!loading && <span>Buy now</span>}
           </Button>

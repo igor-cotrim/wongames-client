@@ -1,19 +1,18 @@
 import Link from 'next/link'
-import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import React, { useState, useEffect } from 'react'
+import { Session } from 'next-auth'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ErrorOutline, ShoppingCart } from '@styled-icons/material-outlined'
 
-import { useCart } from 'hooks/use-cart'
 import Button from 'components/Button'
 import Heading from 'components/Heading'
-
-import * as S from './styles'
+import { FormLoading } from 'components/Form'
+import { useCart } from 'hooks/use-cart'
 import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
 
-import { FormLoading } from 'components/Form'
-import { Session } from 'next-auth'
+import * as S from './styles'
 
 type PaymentFormProps = {
   session: Session

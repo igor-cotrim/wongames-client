@@ -61,3 +61,27 @@ Cypress.Commands.add('shouldRenderShowcase', ({ name, highlight = false }) => {
     cy.getByDataCy('game-card').should('have.length.gt', 0)
   })
 })
+
+Cypress.Commands.add('getFields', (fields) => {
+  fields.map(({ label }) => {
+    cy.findByText(label).should('exist')
+  })
+})
+
+Cypress.Commands.add('shouldBeLessThen', (value) => {
+  cy
+    .findByText(/^\$\d+(\.\d{1,2})?/)
+    .invoke('text')
+    .then($el => $el.replace('$', ''))
+    .then(parseFloat)
+    .should('be.lt', value)
+})
+
+Cypress.Commands.add('shouldBeGreaterThan', (value) => {
+  cy
+    .findByText(/^\$\d+(\.\d{1,2})?/)
+    .invoke('text')
+    .then($el => $el.replace('$', ''))
+    .then(parseFloat)
+    .should('be.gt', value)
+})

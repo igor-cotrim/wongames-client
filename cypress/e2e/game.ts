@@ -45,4 +45,34 @@ describe('#Game Page', () => {
     // cy.shouldRenderShowcase({ name: "Upcoming Games", highlight: true})
     // cy.shouldRenderShowcase({ name: "You may like these games", highlight: false})
   });
+
+  it('should add/remove game in cart', () => {
+    // add to cart
+    cy.getByDataCy('game-info').within(() => {
+      cy.findByRole('button', { name: /add to cart/i }).click()
+      cy.findByRole('button', { name: /remove to cart/i }).should('exist')
+    })
+
+    cy.findAllByLabelText(/Cart Items/i)
+    .first()
+    .should('have.text', 1)
+    .click()
+
+    cy.getByDataCy('cart-list').within(() => {
+      cy.findByRole('heading', { name: /Tandem: A Tale of Shadows/i }).should('exist')
+    })
+
+    // close dropdown
+    cy.findAllByLabelText(/cart items/i)
+      .first()
+      .click()
+
+    //remove to cart
+    cy.getByDataCy('game-info').within(() => {
+      cy.findByRole('button', { name: /remove to cart/i }).click()
+      cy.findByRole('button', { name: /add to cart/i }).should('exist')
+    })
+
+    cy.findAllByLabelText(/cart items/i).should('not.exist')
+  });
 });

@@ -26,6 +26,7 @@
 
 //Add Testing Library Commands
 import '@testing-library/cypress/add-commands';
+import { User } from './generate';
 
 Cypress.Commands.add('google', () => cy.visit('https://google.com'))
 
@@ -84,4 +85,12 @@ Cypress.Commands.add('shouldBeGreaterThan', (value) => {
     .then($el => $el.replace('$', ''))
     .then(parseFloat)
     .should('be.gt', value)
+})
+
+Cypress.Commands.add('signUp', (user: User) => {
+  cy.findByPlaceholderText(/username/i).type(user.username)
+  cy.findByPlaceholderText(/email/i).type(user.email)
+  cy.findByPlaceholderText(/^password/i).type(user.password)
+  cy.findByPlaceholderText(/confirm password/i).type(user.password)
+  cy.findByRole('button', { name: /sign up now/i }).click()
 })

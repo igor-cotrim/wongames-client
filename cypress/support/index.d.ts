@@ -11,6 +11,12 @@ type FieldsAttributes = {
   name: string | number
 }
 
+type User = {
+  username: string
+  email: string
+  password: string
+}
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -18,6 +24,12 @@ declare namespace Cypress {
      * @example cy.google()
      */
     google(): Chainable<Window>
+
+    /**
+     * Custom command to sign  in
+     * @example cy.signUp({username: 'Igor', email: 'igorxuxicotrim@gmail.com', password: 123})
+     */
+    signUp(user: User): Chainable<Element>
 
     /**
      * Custom command to get element by data-cy

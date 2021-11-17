@@ -26,10 +26,16 @@ declare namespace Cypress {
     google(): Chainable<Window>
 
     /**
-     * Custom command to sign  in
+     * Custom command to sign up
      * @example cy.signUp({username: 'Igor', email: 'igorxuxicotrim@gmail.com', password: 123})
      */
     signUp(user: User): Chainable<Element>
+
+    /**
+     * Custom command to sign in
+     * @example cy.signIn()
+     */
+    signIn(email?: string, password?: string): Chainable<Element>
 
     /**
      * Custom command to get element by data-cy

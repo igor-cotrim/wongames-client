@@ -101,3 +101,15 @@ Cypress.Commands.add('signIn', (email = 'e2e@wongames.com', password = '123456')
   cy.findAllByPlaceholderText(/password/i).type(password)
   cy.findByRole('button', { name: /sign in now/i }).click()
 })
+
+Cypress.Commands.add('addToCartByIndex', (index) => {
+  cy.getByDataCy('game-card').eq(index).within(() => {
+    cy.findByRole('button', { name: /^add to cart/i }).click()
+  })
+})
+
+Cypress.Commands.add('removeToCartByIndex', (index) => {
+  cy.getByDataCy('game-card').eq(index).within(() => {
+    cy.findByRole('button', { name: /^remove to cart/i }).click()
+  })
+})

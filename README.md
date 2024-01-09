@@ -60,6 +60,3 @@ $ yarn test:e2e
 
 Abra http://localhost:3000 no seu navegador para visualizar o projeto (certifique-se que já tenha um backend rodando localmente.)
 ```
-
-## Licença
-Copyright © 2021 Caio Augusto.
